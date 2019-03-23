@@ -4,7 +4,7 @@ const prefix = '-'
 
 client.on("message", (message) => {
     /// ALPHA CODES
-   if (message.content.startsWith("#new")) {     /// ALPHA CODES
+   if (message.content.startsWith("-new")) {     /// ALPHA CODES
         const reason = message.content.split(" ").slice(1).join(" ");     /// ALPHA CODES
         if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`لازم تسوي رتبة اسمها \`Support Team\` وتنطي البوت ادمنيتر حتا يقدر يسوي الرومات ويعدل برمشنات`);
         if (message.guild.channels.exists("name", "ticket-{message.author.id}" + message.author.id)) return message.channel.send(`You already have a ticket open.`);    /// ALPHA CODES
@@ -38,9 +38,9 @@ client.on("message", (message) => {
   if (message.content.startsWith(".")) {
         if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`You can't use the close command outside of a ticket channel.`);
 
-       message.channel.send(`هل انت متأكد من اقفالك للتذكرة اذا متأكد اكتب #close`)
+       message.channel.send(`هل انت متأكد من اقفالك للتذكرة اذا متأكد اكتب -close`)
            .then((m) => {
-               message.channel.awaitMessages(response => response.content === '#close', {
+               message.channel.awaitMessages(response => response.content === '-close', {
                        max: 1,
                        time: 10000,
                        errors: ['time'],
@@ -56,6 +56,40 @@ client.on("message", (message) => {
            });
    }
 
+});
+
+const developers = ["315100220520267776"]
+client.on('message', message => {
+    var argresult = message.content.split(` `).slice(1).join(' ');
+      if (!developers.includes(message.author.id)) return;
+      
+  if (message.content.startsWith(adminprefix + 'setg')) {
+    client.user.setGame(argresult);
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+     if (message.content === (adminprefix + "leave")) {
+    message.guild.leave();        
+  } else  
+  if (message.content.startsWith(adminprefix + 'setw')) {
+  client.user.setActivity(argresult, {type:'WATCHING'});
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+  if (message.content.startsWith(adminprefix + 'setl')) {
+  client.user.setActivity(argresult , {type:'LISTENING'});
+      message.channel.send(`**✅   ${argresult}**`)
+  } else 
+  if (message.content.startsWith(adminprefix + 'sets')) {
+    client.user.setGame(argresult, "https://www.twitch.tv/dream");
+      message.channel.send(`**✅**`)
+  }
+  if (message.content.startsWith(adminprefix + 'setname')) {
+  client.user.setUsername(argresult).then
+      message.channel.send(`Changing The Name To ..**${argresult}** `)
+} else
+if (message.content.startsWith(adminprefix + 'setava')) {
+  client.user.setAvatar(argresult);
+    message.channel.send(`Changing The Avatar To :**${argresult}** `);
+}
 });
 
 client.login(process.env.BOT_TOKEN);
