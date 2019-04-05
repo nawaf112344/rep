@@ -3,8 +3,8 @@ const client = new Discord.Client();
 const prefix = '-'
 
 client.on('message', message => {
-if(message.content.startsWith(prefix + '.')) {
-message.channel.send(``#` **- Welcome To Reward Server,:tada: 
+if(message.content.startsWith(prefix + 'EE')) {
+message.channel.send(`# **- Welcome To Reward Server,:tada: 
 قم بالضغط على الرياكشن ليتم تفعيلك,**`).then(msg => {
 msg.react('✅')
 
