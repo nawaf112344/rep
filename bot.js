@@ -6,7 +6,7 @@ client.on('ready', () => {
 });
 
 var { Client } = require("discord.js");
-var client = new Client();
+var client = new Discord.Client()
 var {token, messageID, roleName} = {
     "token": "NTU4NTMxMjYwNzM0MjQyODM0.XKfcsw.QcgZpICpyIHs8-Yt22g49P90lNg",
     "messageID": "563863570878824452",
