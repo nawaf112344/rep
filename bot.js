@@ -17,5 +17,3 @@ client.login(process.env.BOT_TOKEN).then(() => {
         member.addRole(role).catch(console.error);
     });
 });
-
-client.login(process.env.BOT_TOKEN);
