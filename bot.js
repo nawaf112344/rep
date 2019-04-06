@@ -1,23 +1,29 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = '-'
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
 
-client.on('message', message => {
-if(message.content.startsWith(prefix + 'EE')) {
-message.channel.send(`# **- Welcome To Reward Server,:tada: 
-قم بالضغط على الرياكشن ليتم تفعيلك,**`).then(msg => {
-msg.react('✅')
-
-let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-
-let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
-reaction1.on("collect", r => {
-msg.delete();
-const rro = message.guild.roles.find("name","-Members,")
-member.addRole(rro);
-})
-})
-}
+var { Client } = require("discord.js");
+var client = new Client();
+var {token, messageID, roleName} = {
+    "token": "NTU4NTMxMjYwNzM0MjQyODM0.XKfcsw.QcgZpICpyIHs8-Yt22g49P90lNg",
+    "messageID": "563863570878824452",
+    "roleName": "-Members,"
+};
+client.login(token).then(() => {
+    client.on("raw", async (event) => {
+        if (event.t !== "MESSAGE_REACTION_ADD") return undefined;
+        if (event.d.message_id !== messageID) return undefined;
+        var guild  = client.guilds.get(event.d.guild_id);
+        if (!guild) return undefined;
+        var member = guild.members.get(event.d.user_id);
+        if (!member) return undefined;
+        var role = guild.roles.find(role => role.name == roleName);
+        if (!role) return undefined;
+        member.addRole(role).catch(console.error);
+    });
 });
 
 client.login(process.env.BOT_TOKEN);
