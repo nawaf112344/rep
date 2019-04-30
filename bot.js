@@ -1,19 +1,21 @@
-var { Client } = require("discord.js");
-var client = new Client();
-var {messageID, roleName} = {
-    "messageID": "572315065441845258",
-    "roleName": "- Members,"
-};
-client.login(process.env.BOT_TOKEN).then(() => {
-    client.on("raw", async (event) => {
-        if (event.t !== "MESSAGE_REACTION_ADD") return undefined;
-        if (event.d.message_id !== messageID) return undefined;
-        var guild  = client.guilds.get(event.d.guild_id);
-        if (!guild) return undefined;
-        var member = guild.members.get(event.d.user_id);
-        if (!member) return undefined;
-        var role = guild.roles.find(role => role.name == roleName);
-        if (!role) return undefined;
-        member.addRole(role).catch(console.error);
+const Discord = require('discord.js');
+const client = new Discord.Client();
+
+client.on('message',async message => {
+    if(message.content.startsWith(prefix + "setVoice")) {
+    if(!message.guild.member(message.author).hasPermissions('MANAGE_CHANNELS')) return message.reply('❌ **ليس لديك الصلاحيات الكافية**');
+    if(!message.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply('❌ **ليس معي الصلاحيات الكافية**');
+    message.channel.send('✅| **تم عمل الروم بنجاح**');
+    message.guild.createChannel(`Voice Pax : [ ${message.guild.members.filter(m => m.voiceChannel).size} ]` , 'voice').then(c => {
+      console.log(`Voice Pax channel setup for guild: \n ${message.guild.name}`);
+      c.overwritePermissions(message.guild.id, {
+        CONNECT: false,
+        SPEAK: false
+      });
+      setInterval(function() {
+        c.setName(`Voice online : [ ${message.guild.members.filter(m => m.voiceChannel).size} ]`)
+      },1000);
     });
-});
+    }
+  });
+  
