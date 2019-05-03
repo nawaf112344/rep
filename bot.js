@@ -1,20 +1,8 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-
-function clean(text) {
-    if (typeof(text) === "string")
-      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-    else
-        return text;
-}
-
 const prefix = "-";
-const token = "Token Your Bot";
 
-client.on("ready", () => {
-  console.log("Vulnix | Logged in! Server count: ${client.guilds.size}");
-  client.user.setGame(`Support Magic |${prefix}new`);
-});
+
 
 
 client.on("message", (message) => {
@@ -86,4 +74,16 @@ if (message.content.toLowerCase().startsWith(prefix + `close`)) {
 
 });
 
-client.login(token);
+client.on('ready', () => {
+   console.log(`----------------`);
+      console.log(`BOT STARTED`);
+        console.log(`---------------`);
+      console.log(`ON ${client.guilds.size} Servers `);
+    console.log(`---------------`);
+  console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setGame(`Welcome To Vault Shop`,"http://twitch.tv/vAmmvr_");
+   client.user.setStatus("online");
+});
+
+
+client.login(process.env.BOT_TOKEN);
