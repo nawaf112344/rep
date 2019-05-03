@@ -8,7 +8,7 @@ function clean(text) {
         return text;
 }
 
-const prefix = "Your Prefix";
+const prefix = "-";
 const token = "Token Your Bot";
 
 client.on("ready", () => {
