@@ -81,9 +81,8 @@ client.on('ready', () => {
       console.log(`ON ${client.guilds.size} Servers `);
     console.log(`---------------`);
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setGame(`Welcome To Vault Shop`,"http://twitch.tv/vAmmvr_");
+  client.user.setGame(`Welcome To Vault Reward`,"http://twitch.tv/vAmmvr_");
    client.user.setStatus("online");
 });
-
 
 client.login(process.env.BOT_TOKEN);
